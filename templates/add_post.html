@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<br/><br/>
+<form action="/save_post" METHOD="POST">
+
+<div class="mb-3">
+  <label for="exampleFormControlInput1" class="form-label">Название статьи</label>
+  <input type="text" class="form-control" id="exampleFormControlInput1" name="title">
+</div>
+
+  <div class="mb-3">
+  <label for="exampleFormControlTextarea1" class="form-label">Текст поста</label>
+  <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" name="content"></textarea>
+</div>
+
+  <div class="mb-3">
+  <label for="exampleFormControlInput1" class="form-label">Автор статьи</label>
+  <input type="text" class="form-control" id="exampleFormControlInput1" name="author">
+ </div>
+
+  <div class="mb-3">
+  <label for="exampleFormControlInput1" class="form-label">Дата публикации</label>
+  <input type="date" class="form-control" id="date" name="date_release">
+</div>
+
+
+
+  <br/>
+    <input class="btn btn-primary" type="submit" value="Сохранить">
+
+</form>
+{% endblock %}

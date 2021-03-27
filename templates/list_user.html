@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+{% block content %}
+<br/><br/>
+
+<h3 align="justify">
+     <div class="container pt-2 p-3 my-3 border bg-dark text-white" style="opacity: 0.7; width: 1500px;  border-width" align="justify">
+
+
+    <table border="2" width="100%" cellpadding="20" style="width: 100%" align="justify" rules="all">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Имя</th>
+            <th scope="col">Email</th>
+            <th scope="col">Уровень доступа</th>
+            <th scope="col">Правка</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for user in users %}
+        <tr>
+            <th scope="row">{{ user.id }}</th>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.access_level }}</td>
+
+            <td>
+
+                <!-- Кнопка открытия модального окна -->
+                <a button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{ user.id }}">
+                    Редактировать
+                </a>
+                <!-- Кнопка удаления абонента -->
+                <a href="/delete_user/{{ user.id }}" class="btn btn-danger">Удалить</a>
+
+                <form action="/update_user" id="data" METHOD="POST">
+                    <!-- Модальное окно -->
+                    <div class="modal fade" id="exampleModal{{ user.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Окно редактирования</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+
+                                    <input type="hidden" value="{{ user.id }}" name="id"/>
+
+                                    <div class="input-group input-group-sm mb-3">
+                                        <span class="input-group-text" id="inputGroup-sizing-sm">Имя</span>
+                                        <input type="text" class="form-control" value="{{ user.name }}" name="name" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                                    </div>
+
+<!--                                    <div class="input-group input-group-sm mb-3">-->
+<!--                                        <span class="input-group-text" id="inputGroup-sizing-sm">Пароль</span>-->
+<!--                                        <input type="text" class="form-control" placeholder="{{ user.password }}" name="password" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">-->
+<!--                                    </div>-->
+
+                                    <div class="input-group input-group-sm mb-3">
+                                        <span class="input-group-text" id="inputGroup-sizing-sm">Email</span>
+                                        <input type="text" class="form-control" value="{{ user.email }}" name="email" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                                    </div>
+
+                                    <div class="input-group input-group-sm mb-3">
+                                        <span class="input-group-text" id="inputGroup-sizing-sm">Уровень доступа</span>
+                                        <input type="text" class="form-control" value="{{ user.access_level }}" name="access_level" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                                    <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </td>
+        </tr>
+
+
+{% endfor %}
+
+        </tbody>
+    </table>
+
+    </div>
+
+    <!--</form>-->
+
+</h3>
+<div class="d-grid gap-2 d-md-flex justify-content-md-end fixed-bottom" style="padding: 5px">
+    <a type="button" data-bs-toggle="modal" data-bs-target="#zalupaModal1" class="btn btn-secondary">Добавить пользователя</a>
+</div>
+
+<form action="/save_user" id="data" METHOD="POST">
+    <!-- Модальное окно -->
+    <div class="modal fade modal lg" id="zalupaModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Окно создания пользователя</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Имя пользователя</label>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" name="name">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Email</label>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" name="email">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Пароль</label>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" name="password">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Уровень доступа</label>
+                        <input type="number" class="form-control" id="exampleFormControlInput1" name="access_level">
+                    </div>
+
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+</body>
+
+
+
+{% endblock %}

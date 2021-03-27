@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% block content %}
+<br/><br/>
+
+{{ ckeditor.load() }}
+{% for post in posts %}
+<div class="container pt-2 p-3 my-3 border bg-dark text-white" style="opacity: 0.7; width: 900px" align="center">
+    <table>
+        <tbody style="width: 100%">
+        <tr>
+            <td colspan="2"><h1 align="center">{{ post.title | safe }}</h1></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td colspan="2"><h6 align="justify" style="padding-left: 50px; padding-right: 50px">{{ post.content | safe }}</h6></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td><h5 align="left" style="padding-left: 50px; padding-right: 50px">{{ post.date_release | safe }}</h5></td>
+            <td><h4 align="right" style="padding-left: 50px; padding-right: 50px">{{ post.author | safe }}</h4></td>
+        </tr>
+
+        <tr>
+            <td align="left" style="padding-left: 50px; padding-right: 50px"><a button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{ post.id }}" >
+            Редактировать
+            </a>
+            <!-- Кнопка удаления поста -->
+            <a href="/delete_post/{{ post.id }}" class="btn btn-outline-danger" style="padding-left: 50px; padding-right: 50px">Удалить</a></td>
+            <td></td>
+
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+
+<form action="/update_post" id="data" METHOD="POST">
+    <!-- Модальное окно -->
+    <div class="modal fade modal lg" id="exampleModal{{ post.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Окно редактирования</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <input type="hidden" value="{{ post.id }}" name="id"/>
+
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Название статьи</label>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" name="title" value="{{ post.title }}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Текст поста</label>
+                        {{ post.title }}
+                        {{ ckeditor.create(value=post.content) }}
+
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Автор статьи</label>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" name="author" value="{{ post.author }}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Дата публикации</label>
+                        <input type="date" class="form-control" id="date" name="date_release" value="{{ post.date_release }}">
+                    </div>
+
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+{% endfor %}
+
+<div class="d-grid gap-2 d-md-flex justify-content-md-end fixed-bottom" style="padding: 5px">
+    <a type="button" data-bs-toggle="modal" data-bs-target="#zalupaModal" class="btn btn-secondary">Создать пост</a>
+</div>
+
+
+<form action="/save_post" id="data" METHOD="POST">
+    <!-- Модальное окно -->
+    <div class="modal fade modal lg" id="zalupaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Окно редактирования</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Название статьи</label>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" name="title">
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Текст поста</label>
+                        {{ ckeditor.create() }}
+
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Автор статьи</label>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" name="author">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Дата публикации</label>
+                        <input type="date" class="form-control" id="date" name="date_release">
+                    </div>
+
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+{% endblock %}
