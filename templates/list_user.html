@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
 <br/><br/>
+{% for user in users %}
+<h5 align="justify">
+     <div class="container pt-2 p-3 my-3 border bg-dark text-white" style="opacity: 0.7; width: 1500px" align="justify">
 
-<h3 align="justify">
-     <div class="container pt-2 p-3 my-3 border bg-dark text-white" style="opacity: 0.7; width: 1500px;  border-width" align="justify">
 
-
-    <table border="2" width="100%" cellpadding="20" style="width: 100%" align="justify" rules="all">
+    <table border="1" width="100%" cellpadding="5">
         <thead>
         <tr>
             <th scope="col">ID</th>
@@ -14,18 +14,21 @@
             <th scope="col">Email</th>
             <th scope="col">Уровень доступа</th>
             <th scope="col">Правка</th>
+
         </tr>
+
         </thead>
 
+
         <tbody>
-        {% for user in users %}
+
         <tr>
-            <th scope="row">{{ user.id }}</th>
+            <td scope="row">{{ user.id }}</td>
             <td>{{ user.name }}</td>
             <td>{{ user.email }}</td>
             <td>{{ user.access_level }}</td>
 
-            <td>
+            <th>
 
                 <!-- Кнопка открытия модального окна -->
                 <a button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{ user.id }}">
@@ -34,6 +37,14 @@
                 <!-- Кнопка удаления абонента -->
                 <a href="/delete_user/{{ user.id }}" class="btn btn-danger">Удалить</a>
 
+            </th>
+
+            </tr>
+
+ </tbody>
+    </table>
+
+    </div>
                 <form action="/update_user" id="data" METHOD="POST">
                     <!-- Модальное окно -->
                     <div class="modal fade" id="exampleModal{{ user.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -76,20 +87,15 @@
                         </div>
                     </div>
                 </form>
-            </td>
-        </tr>
 
 
 {% endfor %}
 
-        </tbody>
-    </table>
 
-    </div>
 
     <!--</form>-->
 
-</h3>
+</h5>
 <div class="d-grid gap-2 d-md-flex justify-content-md-end fixed-bottom" style="padding: 5px">
     <a type="button" data-bs-toggle="modal" data-bs-target="#zalupaModal1" class="btn btn-secondary">Добавить пользователя</a>
 </div>
