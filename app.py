@@ -10,7 +10,7 @@ from flask_wtf import FlaskForm
 app = Flask(__name__)
 ckeditor = CKEditor(app)
 
-app.config['SECRET_KEY'] = 'unknown_huynya'
+app.config['SECRET_KEY'] = '123456789'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///list.db'
 
 db = SQLAlchemy(app)
