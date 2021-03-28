@@ -43,9 +43,9 @@ def about():
 def index():
     name = ''
     try:
-        name = ', ' + current_user.name
+        name = current_user.name
     except Exception as ex:
-        print(ex)
+        pass
     return render_template('index.html', name=name)
 
 

@@ -1,8 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
 <br/><br/>
+{% if current_user.is_authenticated %}
 <div class="container pt-2 p-3 my-3 border bg-dark text-white" style="opacity: 0.7; width: 900px" align="right">
-<h1 align="center">Добро пожаловать {{ name }}</h1>
+<h1 align="center">Здравствуйте, {{ name }}! Мы рады видеть вас в нашем блоге.</h1>
 </div>
+{% endif %}
+
+{% if not current_user.is_authenticated %}
+<div class="container pt-2 p-3 my-3 border bg-dark text-white" style="opacity: 0.7; width: 900px" align="right">
+<h1 align="center">Добро пожаловать в наш блог!</h1>
+</div>
+{% endif %}
+
 
 {% endblock %}
